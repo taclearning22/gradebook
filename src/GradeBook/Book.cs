@@ -2,7 +2,7 @@
 
 namespace GradeBook // Note: actual namespace depends on the project name.
 {
-    class Book
+    public class Book
     {
         private List<double> grades;
         private string name;
@@ -17,25 +17,23 @@ namespace GradeBook // Note: actual namespace depends on the project name.
             this.grades.Add(grade);
         }
 
-        public void ShowStatistics()
+        public Statistics GetStatistics()
         {
-            var result = 0.0;
-            var average = 0.0;
-            var highestGrade = double.MinValue;
-            var lowestGrade = double.MaxValue;
+            var result = new Statistics();
+            result.Average = 0.0;
+            result.Total = 0.0;
+            result.High = double.MinValue;
+            result.Low = double.MaxValue;
 
             foreach (double number in grades)
             {
-                highestGrade = Math.Max(number, highestGrade);
-                lowestGrade = Math.Min(number, lowestGrade);
-                result += number;
+                result.High = Math.Max(number, result.High);
+                result.Low = Math.Min(number, result.Low);
+                result.Total += number;
             }
-            average = result / grades.Count;
+            result.Average = result.Total / grades.Count;
 
-            Console.WriteLine($"The total is {result}");
-            Console.WriteLine($"The average is {average}");
-            Console.WriteLine($"The HIGHEST Grade is {highestGrade}");
-            Console.WriteLine($"The LOWEST Grade is {lowestGrade}");
+            return result;
         }
     }
 }

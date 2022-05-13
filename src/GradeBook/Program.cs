@@ -7,19 +7,19 @@
 // var grades = new List<double>() { 12.11, 256, 546.21 };
 // grades.Add(56.1);
 
-// var result = 0.0;
+// var stats = 0.0;
 // var average = 0.0;
 
 // foreach (double number in grades)
 // {
-//     result += number;
+//     stats += number;
 // }
-// average = result / grades.Count;
+// average = stats / grades.Count;
 
-// Console.WriteLine($"The total is {result}");
+// Console.WriteLine($"The total is {stats}");
 // Console.WriteLine($"The average is {average}");
 
-// Console.WriteLine($"The result of x + y = {x + y}!");
+// Console.WriteLine($"The stats of x + y = {x + y}!");
 
 // if (args.Length > 0)
 //     Console.WriteLine($"Hello, {args[0]}!");
@@ -40,7 +40,11 @@ namespace GradeBook // Note: actual namespace depends on the project name.
             book.AddGrade(68.2);
             book.AddGrade(54.6);
             book.AddGrade(56.1);
-            book.ShowStatistics();
+            var stats = book.GetStatistics();
+            Console.WriteLine($"The total is {stats.Total}");
+            Console.WriteLine($"The average is {stats.Average}");
+            Console.WriteLine($"The HIGHEST Grade is {stats.High}");
+            Console.WriteLine($"The LOWEST Grade is {stats.Low}");
 
         }
     }
