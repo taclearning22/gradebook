@@ -37,14 +37,45 @@ namespace GradeBook // Note: actual namespace depends on the project name.
         static void Main(string[] args)
         {
             var book = new Book("John's GradeBook");
-            book.AddGrade(68.2);
-            book.AddGrade(54.6);
-            book.AddGrade(56.1);
+            var grades = new List<double>();
+            
+            Console.WriteLine("Enter grade/s or 'q' to quit");
+            
+            while(true)
+            {
+                var input = Console.ReadLine();
+                if(input == "q")
+                {
+                    break;
+                }
+                
+                try
+                {
+                    var grade = double.Parse(input);
+                    book.AddGrade(grade);
+                }
+                catch(ArgumentException aex)
+                {
+                    Console.WriteLine(aex.Message);
+                }
+                catch(FormatException fex)
+                {
+                    Console.WriteLine(fex.Message);
+                }
+                finally
+                {
+                    Console.WriteLine("***");
+                }
+            }
+            // book.AddGrade(86.2);
+            // book.AddGrade(65.6);
+            // book.AddGrade(67.1);
             var stats = book.GetStatistics();
             Console.WriteLine($"The total is {stats.Total}");
             Console.WriteLine($"The average is {stats.Average}");
             Console.WriteLine($"The HIGHEST Grade is {stats.High}");
             Console.WriteLine($"The LOWEST Grade is {stats.Low}");
+            Console.WriteLine($"The Letter Grade is {stats.Letter}");
 
         }
     }
