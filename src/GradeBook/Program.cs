@@ -36,10 +36,8 @@ namespace GradeBook // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-            var book = new DiskBook("John's GradeBook");
+            Book? book = new DiskBook("");
             book.GradeAdded += OnGradeAdded;
-
-            var grades = new List<double>();
 
             Console.WriteLine("Enter grade/s or 'q' to quit");
             EnterGrades(book);
@@ -54,7 +52,7 @@ namespace GradeBook // Note: actual namespace depends on the project name.
             Console.WriteLine($"The Letter Grade is {stats.Letter}");
         }
 
-        private static void EnterGrades(IBook book)
+        private static void EnterGrades(IBook? book)
         {
             while (true)
             {
