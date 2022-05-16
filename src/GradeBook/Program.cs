@@ -36,13 +36,26 @@ namespace GradeBook // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-            var book = new Book("John's GradeBook");
+            var book = new DiskBook("John's GradeBook");
             book.GradeAdded += OnGradeAdded;
 
             var grades = new List<double>();
 
             Console.WriteLine("Enter grade/s or 'q' to quit");
+            EnterGrades(book);
+            
+            var stats = book.GetStatistics();
 
+            Console.WriteLine($"For the book named {book.Name}");
+            Console.WriteLine($"The total is {stats.Total}");
+            Console.WriteLine($"The average is {stats.Average}");
+            Console.WriteLine($"The HIGHEST Grade is {stats.High}");
+            Console.WriteLine($"The LOWEST Grade is {stats.Low}");
+            Console.WriteLine($"The Letter Grade is {stats.Letter}");
+        }
+
+        private static void EnterGrades(IBook book)
+        {
             while (true)
             {
                 var input = Console.ReadLine();
@@ -71,23 +84,11 @@ namespace GradeBook // Note: actual namespace depends on the project name.
                 }
 
             }
-            // book.AddGrade(86.2);
-            // book.AddGrade(65.6);
-            // book.AddGrade(67.1);
-            var stats = book.GetStatistics();
-
-            Console.WriteLine(Book.CATEGORY);
-            Console.WriteLine($"For the book named {book.Name}");
-            Console.WriteLine($"The total is {stats.Total}");
-            Console.WriteLine($"The average is {stats.Average}");
-            Console.WriteLine($"The HIGHEST Grade is {stats.High}");
-            Console.WriteLine($"The LOWEST Grade is {stats.Low}");
-            Console.WriteLine($"The Letter Grade is {stats.Letter}");
         }
 
         static void OnGradeAdded(object sender, EventArgs e)
         {
-            Console.WriteLine("A grade was added");
+            Console.WriteLine("Grade was added");
         }
     }
 }
