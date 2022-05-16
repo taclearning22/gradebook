@@ -4,14 +4,21 @@ namespace GradeBook // Note: actual namespace depends on the project name.
 {
     public class Book
     {
-        private List<double> grades;
-        public string Name;
-
+        public delegate void GradeAddedDelegate(object sender, EventArgs args);
         public Book(string name)
         {
             grades = new List<double>();
             Name = name;
         }
+
+        private List<double> grades;
+        private string name;
+        public string Name
+        {
+            get; 
+            set;
+        }
+        public const string CATEGORY = "Science";
 
         // public void AddLetterGrade(char letter)
         // {
@@ -38,10 +45,19 @@ namespace GradeBook // Note: actual namespace depends on the project name.
         public void AddGrade(double grade)
         {
             if(grade <= 100 && grade >= 0)
+            {
                 grades.Add(grade);
+                if(GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
+            }
+                
             else
                 throw new ArgumentException($"Invalid {nameof(grade)}");
         }
+
+        public event GradeAddedDelegate GradeAdded;
 
         public Statistics GetStatistics()
         {
