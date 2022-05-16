@@ -38,34 +38,36 @@ namespace GradeBook // Note: actual namespace depends on the project name.
         {
             var book = new Book("John's GradeBook");
             var grades = new List<double>();
-            
+
             Console.WriteLine("Enter grade/s or 'q' to quit");
-            
-            while(true)
+
+            while (true)
             {
                 var input = Console.ReadLine();
-                if(input == "q")
+                if (input != null)
                 {
-                    break;
+                    if (input == "q")
+                        break;
+
+                    try
+                    {
+                        var grade = double.Parse(input);
+                        book.AddGrade(grade);
+                    }
+                    catch (ArgumentException aex)
+                    {
+                        Console.WriteLine(aex.Message);
+                    }
+                    catch (FormatException fex)
+                    {
+                        Console.WriteLine(fex.Message);
+                    }
+                    finally
+                    {
+                        Console.WriteLine("***");
+                    }
                 }
-                
-                try
-                {
-                    var grade = double.Parse(input);
-                    book.AddGrade(grade);
-                }
-                catch(ArgumentException aex)
-                {
-                    Console.WriteLine(aex.Message);
-                }
-                catch(FormatException fex)
-                {
-                    Console.WriteLine(fex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine("***");
-                }
+
             }
             // book.AddGrade(86.2);
             // book.AddGrade(65.6);
